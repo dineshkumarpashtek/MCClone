@@ -18,8 +18,8 @@ app.get("/api/getPersons", function (req, res) {
                         });  
                     });
 app.post("/api/createperson", function (req, res) {       
-    const { personid, city } = req.body;   
-    var insertQuery ="INSERT INTO persons (personid, city) VALUES ('" +     personid +     "','" +     city +     "')";
+    const { address, city } = req.body;   
+    var insertQuery ="INSERT INTO persons (personid, city) VALUES ('" +     address +     "','" +     city +     "')";
     db.query(insertQuery, true)     
     .then(function (data) {       
         return res.json(data);     })     
