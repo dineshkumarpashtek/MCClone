@@ -1,4 +1,33 @@
-var jsforce = require('jsforce');
+var jsforce = require("jsforce");
+// Salesforce OAuth2 client informationvar conn = new jsforce.Connection({  oauth2: {    // you can change loginUrl to connect to sandbox or prerelease env.    loginUrl: "https://login.salesforce.com",    clientId: process.env.Consumer_Key,    clientSecret: process.env.Consumer_Secret,    redirectUri: process.env.Callback_URL,  },});
+//all the routes for our applicationmodule.exports = function (app, db, pgp) {  // =====================================  // HOME PAGE (with login links) ========  // ===================================== app.get("/api/getlead", function (req, res) {    //res.render("index.ejs"); // load the index.ejs file  const results = [];    var query = "SELECT * FROM lead ";    db.query(query, true)      .then(function (data) {        return res.json(data);      })      .catch(function (err) {        console.log("ERROR:", err); // print the error;        return res.status(400).json({ success: false, error: err });      })   .finally(function () {        pgp.end(); // for immediate app exit, closing the connection pool.      });  });
+app.get("/api/getPersons", function (req, res) {    
+    //res.render("index.ejs"); 
+    // load the index.ejs file  const results = [];    
+    var query = "SELECT * FROM lead ";    db.query(query, true)      
+    .then(function (data) {        
+        return res.json(data);
+          })      
+          .catch(function (err) {
+                      console.log("ERROR:", err); 
+                      // print the error;        
+                      return res.status(400).json({ success: false, error: err });      })   
+                      .finally(function () {        
+                          pgp.end(); // for immediate app exit, closing the connection pool.      
+                        });  
+                    });
+app.post("/api/createperson", function (req, res) {       
+    const { personid, city } = req.body;   
+    var insertQuery ="INSERT INTO persons (personid, city) VALUES ('" +     personid +     "','" +     city +     "')";
+    db.query(insertQuery, true)     
+    .then(function (data) {       
+        return res.json(data);     })     
+        .catch(function (err) {       
+            console.log("ERROR:", err); 
+        }
+)});
+
+/*var jsforce = require('jsforce');
 
 // Salesforce OAuth2 client information
 var conn = new jsforce.Connection({
@@ -89,7 +118,7 @@ module.exports = function(app,db,pgp) {
 				  console.log('Upserted Successfully');
 				  // ... 
 				}); */
-	    return res.json(data);
+	    /*return res.json(data);
 
 	    })
 	    .catch(function (err) {
@@ -110,4 +139,4 @@ module.exports = function(app,db,pgp) {
    
 	
 	
-};
+};*/
