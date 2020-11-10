@@ -4,7 +4,8 @@ var jsforce = require("jsforce");
 app.get("/api/getPersons", function (req, res) {    
     //res.render("index.ejs"); 
     // load the index.ejs file  const results = [];    
-    var query = "SELECT * FROM lead ";    db.query(query, true)      
+    var query = "SELECT * FROM persons ";    
+	db.query(query, true)      
     .then(function (data) {        
         return res.json(data);
           })      
