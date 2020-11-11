@@ -1,5 +1,6 @@
 var jsforce = require("jsforce");
- Salesforce OAuth2 client informationvar conn = new jsforce.Connection({  oauth2: {    
+ //Salesforce OAuth2 client information
+ var conn = new jsforce.Connection({  oauth2: {    
 	 // you can change loginUrl to connect to sandbox or prerelease env.    
 	 loginUrl: "https://pashtek2020-dev-ed.my.salesforce.com",    
 	 clientId: process.env.Consumer_Key,    
