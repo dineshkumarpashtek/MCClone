@@ -25,13 +25,15 @@ app.get("/api/getPersons", function (req, res) {
                           pgp.end(); // for immediate app exit, closing the connection pool.      
                         });  
                     });
-app.post("/api/createperson", function (req, res) {       
+app.post("/api/createperson", function (req, res) {
+	console.log(req.body);
     const { address, city } = req.body;   
     var insertQuery ="INSERT INTO persons (personid, city) VALUES ('" +     address +     "','" +     city +     "')";
 	console.log("Query result", insertQuery);
     db.query(insertQuery, true)     
     .then(function (data) {       
-        return res.json(data);     })     
+        return res.json(data);     
+    })     
         .catch(function (err) {       
             console.log("ERROR:", err); 
         }
